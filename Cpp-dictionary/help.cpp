@@ -12,6 +12,7 @@ create>topic/doc>path          ===>   creates a topic or doc, path should looks 
 delete>topic/doc>path          ===>   deletes a topic or doc, path should looks like DATA/topik_1/.../name
 delete>all                     ===>   deletes all
 change>topic/doc>path>new name ===>   changes a topic name or doc name, path should looks like DATA/topik_1/.../name
-redact>path                    ===>   redacts a doc, path should looks like DATA/topik_1/.../name)LOGO";
+redact>path                    ===>   redacts a doc, path should looks like DATA/topik_1/.../name
+read>path                      ===>   reads a doc, path should looks like DATA/topik_1/.../name)LOGO";
 	printf("%s\n\n", commands.c_str());
 }
