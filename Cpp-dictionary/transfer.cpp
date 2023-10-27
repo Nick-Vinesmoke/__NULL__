@@ -26,9 +26,13 @@ int HandleCommand(std::vector<std::string> command)
 	if (command[0] == "create")
 	{
 		if (command[0] == "topic")
-			//
-		else if (command[0] == "doc")
-			//
+		{
+
+		}
+		else if (command[0] == "doc") 
+		{
+
+		}
 		else
 			return 1;
 		return 0;
