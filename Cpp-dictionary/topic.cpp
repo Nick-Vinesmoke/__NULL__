@@ -23,28 +23,33 @@ void Topic::Print(int tabs) const
 {
     SetConsoleTextAttribute(global::hConsole, 9);
     std::cout << this->name << '\n';
-    for (size_t i = 0; i < context.size(); i++)
+    for (size_t i = 0; i < this->context.size(); i++)
     {
         for (size_t i = 0; i < tabs; i++)
         {
             std::cout << "   ";
         }
 
-        if (std::holds_alternative<File>(context[i]))
+        if (std::holds_alternative<File>(this->context[i]))
         {
-            const File& file = std::get<File>(context[i]);
+            const File& file = std::get<File>(this->context[i]);
             SetConsoleTextAttribute(global::hConsole, 8);
             std::cout <<"* " << file.GetName() << std::endl;
         }
-        else if (std::holds_alternative<Topic>(context[i]))
+        else if (std::holds_alternative<Topic>(this->context[i]))
         {
             SetConsoleTextAttribute(global::hConsole, 9);
-            const Topic& subTopic = std::get<Topic>(context[i]);
+            const Topic& subTopic = std::get<Topic>(this->context[i]);
             std::cout << "* ";
             subTopic.Print(tabs+1);
         }
     }
     SetConsoleTextAttribute(global::hConsole, 7);
+}
+
+void Topic::ClearContext()
+{
+    this->context.clear();
 }
 
 std::string Topic::GetName() const { return this->name; }

@@ -11,6 +11,7 @@ public:
 	void AddContext(File file);
 	void AddContext(Topic topic);
 	void Print(int tabs = 1) const;
+	void ClearContext();
 	std::string GetName() const;
 	~Topic();
 
