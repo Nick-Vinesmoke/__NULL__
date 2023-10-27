@@ -193,6 +193,10 @@ int HandleCommand(std::vector<std::string> command)
 		}
 		return 0;
 	}
+	if (command[0] == "search" && command.size() == 2)
+	{
+
+	}
 	else
 		return 1;
 }

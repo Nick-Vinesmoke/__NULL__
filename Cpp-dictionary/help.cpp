@@ -5,7 +5,7 @@ void Help()
 	SetConsoleTextAttribute(global::hConsole, 8);
 	std::string commands = R"LOGO(help                           ===>   get the full list of available commands
 about                          ===>   gets info about this application as name, ver, etc
-search                         ===>   searchs for topic or doc
+search>name                    ===>   searchs for topic or doc
 decor                          ===>   receives instructions on how to prepare and work with the documentation file
 list                           ===>   gets a complete list of topics and their docs
 create>topic/doc>path          ===>   creates a topic or doc, path should looks like DATA/topik_1/.../name
