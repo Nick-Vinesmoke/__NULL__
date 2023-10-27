@@ -17,6 +17,12 @@ int HandleCommand(std::string command)
 		Decor();
 		return 0;
 	}
+	if (command == "list")
+	{
+		global::mainTopic.Print();
+		std::cout << '\n';
+		return 0;
+	}
 	else
 	{
 		return 1;

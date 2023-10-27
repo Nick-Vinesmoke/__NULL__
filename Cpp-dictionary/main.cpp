@@ -10,13 +10,11 @@ int main()
 	printf("Welcome dear %s!!!\n", global::user.c_str());
 	SetConsoleTextAttribute(global::hConsole, 6);
 	printf("[i]type \"help\" to get commands list\n");
-	Topic mainTopic("DATA");
-	if (!LoadList(mainTopic, "DATA"))
+	if (!LoadList(global::mainTopic, "DATA"))
 	{
 		SetConsoleTextAttribute(global::hConsole, 4);
 		printf("[!]error to load list data\n");
 	}
-	mainTopic.Print();
 	std::string command;
 	while (true)
 	{
