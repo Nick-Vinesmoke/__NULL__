@@ -11,7 +11,7 @@ int main()
 	SetConsoleTextAttribute(global::hConsole, 6);
 	printf("[i]type \"help\" to get commands list\n");
 	Topic mainTopic("DATA");
-	if (!LoadList(mainTopic))
+	if (!LoadList(mainTopic, "DATA"))
 	{
 		SetConsoleTextAttribute(global::hConsole, 4);
 		printf("[!]error to load list data\n");

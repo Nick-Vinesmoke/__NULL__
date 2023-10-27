@@ -10,4 +10,4 @@
 
 void Setup();
 std::string GetUser();
-bool LoadList(Topic& mainTopic);
+bool LoadList(Topic& mainTopic, const std::string& path);
