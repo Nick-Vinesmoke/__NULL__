@@ -24,11 +24,17 @@ int main()
 		getline(std::cin, command);
 		if (!command.empty())
 		{
-			for (char& c : command)
-			{
-				c = tolower(c);
-			}
 			std::vector<std::string> commandWords = Split(command, ">");
+			for (size_t i = 0; i < commandWords.size(); i++)
+			{
+				if (i<2)
+				{
+					for (char& c : commandWords[i])
+					{
+						c = tolower(c);
+					}
+				}
+			}
 			int r = HandleCommand(commandWords);
 			if (r == 1)
 			{

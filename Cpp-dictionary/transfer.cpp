@@ -1,4 +1,5 @@
 #include "transfer.h"
+#include "explorer.h"
 
 int HandleCommand(std::vector<std::string> command)
 {
@@ -23,15 +24,47 @@ int HandleCommand(std::vector<std::string> command)
 		std::cout << '\n';
 		return 0;
 	}
-	if (command[0] == "create")
+	if (command[0] == "create" && command.size() == 3)
 	{
-		if (command[0] == "topic")
+		if (command[1] == "topic")
 		{
-
+			std::string r = AddTopic(command[2]);
+			if (r == "done")
+			{
+				SetConsoleTextAttribute(global::hConsole, 6);
+				std::cout << "[i]topic successfully created\n";
+				global::mainTopic.ClearContext();
+				if (!LoadList(global::mainTopic, "DATA"))
+				{
+					SetConsoleTextAttribute(global::hConsole, 4);
+					printf("[!]error to update list data\n");
+				}
+			}
+			else 
+			{
+				SetConsoleTextAttribute(global::hConsole, 4);
+				std::cout << "[!]"<<r<<'\n';
+			}
 		}
-		else if (command[0] == "doc") 
+		else if (command[1] == "doc") 
 		{
-
+			std::string r = AddDoc(command[2]);
+			if (r == "done")
+			{
+				SetConsoleTextAttribute(global::hConsole, 6);
+				std::cout << "[i]doc successfully created\n";
+				global::mainTopic.ClearContext();
+				if (!LoadList(global::mainTopic, "DATA"))
+				{
+					SetConsoleTextAttribute(global::hConsole, 4);
+					printf("[!]error to update list data\n");
+				}
+			}
+			else
+			{
+				SetConsoleTextAttribute(global::hConsole, 4);
+				std::cout << "[!]" << r << '\n';
+			}
 		}
 		else
 			return 1;

@@ -2,6 +2,7 @@
 
 
 
+
 std::vector<File> GetFilesInDir(const std::string& directoryPath)
 {
     std::vector<File> txtFiles;
@@ -28,4 +29,44 @@ std::vector<Topic> GetDirsInDir(const std::string& directoryPath)
     }
 
     return topics;
+}
+
+std::string AddTopic(const std::string& path)
+{
+    if (path.find("DATA") == 0 || path.find("data") == 0)
+    {
+        if (fs::create_directory(path))
+            return "done";
+        else
+            return "path is incorrectly written or non-existent/already exists";
+    }
+    else 
+    {
+        return "path should start from \"DATA\"";
+    }
+    
+}
+std::string AddDoc(const std::string& path)
+{
+    if (path.find("DATA") == 0 || path.find("data") == 0)
+    {
+        if (!fs::exists(path + ".txt"))
+        {
+            std::ofstream outFile(path + ".txt");
+            if (!outFile.is_open())
+            {
+                return "path is incorrectly written or non-existent/already exists";
+            }
+            outFile.close();
+            return "done";
+        }
+        else
+            return "path is incorrectly written or non-existent/already exists";
+
+    }
+    else
+    {
+        return "path should start from \"DATA\"";
+    }
+
 }
