@@ -12,6 +12,8 @@ public:
 	void AddContext(Topic topic);
 	void Print(int tabs = 1) const;
 	void ClearContext();
+	//remake Search
+	std::vector<std::variant<File, Topic>> Search(const std::string& name);
 	std::string GetName() const;
 	~Topic();
 

@@ -52,4 +52,32 @@ void Topic::ClearContext()
     this->context.clear();
 }
 
+//remake Search
+std::vector<std::variant<File, Topic>> Topic::Search(const std::string& name)
+{
+    std::vector<std::variant<File, Topic>> results;
+
+    for (const auto& item : this->context) 
+    {
+        if (std::holds_alternative<File>(item)) 
+        {
+            const File& file = std::get<File>(item);
+            if (file.GetName().find(name)) 
+            {
+                results.push_back(file);
+            }
+        }
+        else if (std::holds_alternative<Topic>(item)) 
+        {
+            const Topic& topic = std::get<Topic>(item);
+            if (topic.GetName().find(name)) 
+            {
+                results.push_back(topic);
+            }
+        }
+    }
+
+    return results;
+}
+
 std::string Topic::GetName() const { return this->name; }

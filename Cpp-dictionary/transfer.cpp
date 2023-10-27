@@ -1,6 +1,33 @@
 #include "transfer.h"
 #include "explorer.h"
 
+
+//remake PrintSearchResults
+void PrintSearchResults(const std::vector<std::variant<File, Topic>>& results) {
+	if (results.empty()) 
+	{
+		SetConsoleTextAttribute(global::hConsole, 6);
+		std::cout << "[i]no matches" << std::endl;
+		return;
+	}
+
+	SetConsoleTextAttribute(global::hConsole, 6);
+	std::cout << "[i]searching results:" << std::endl;
+
+	for (const auto& item : results) {
+		if (std::holds_alternative<File>(item)) {
+			const File& file = std::get<File>(item);
+			SetConsoleTextAttribute(global::hConsole, 8);
+			std::cout << "   *" << file.GetName() << std::endl;
+		}
+		else if (std::holds_alternative<Topic>(item)) {
+			const Topic& topic = std::get<Topic>(item);
+			SetConsoleTextAttribute(global::hConsole, 9);
+			std::cout << "   *" << topic.GetName() << std::endl;
+		}
+	}
+}
+
 int HandleCommand(std::vector<std::string> command)
 {
 	if (command[0] == "help")
@@ -195,7 +222,9 @@ int HandleCommand(std::vector<std::string> command)
 	}
 	if (command[0] == "search" && command.size() == 2)
 	{
-
+		//remake
+		std::vector<std::variant<File, Topic>> results = global::mainTopic.Search(command[1]);
+		PrintSearchResults(results);
 	}
 	else
 		return 1;
