@@ -2,6 +2,8 @@
 #include "main.h"
 #include "setup.h"
 
+std::string GetUser();
+
 namespace global
 {
     inline HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);

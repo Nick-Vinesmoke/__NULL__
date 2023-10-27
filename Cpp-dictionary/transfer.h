@@ -1,5 +1,6 @@
 #pragma once
 #include "main.h"
+#include "global.h"
 
 int HandleCommand(std::string command);
 
