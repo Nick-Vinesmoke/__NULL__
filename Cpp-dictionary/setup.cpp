@@ -30,12 +30,13 @@ bool LoadList(Topic& mainTopic)
 	if (fs::exists("DATA"))
 	{
 		std::vector<File> files = GetFilesInDir("DATA");
-		for (size_t i = 0; i < files.size(); i++) {
-		std::cout << files[i].GetName() << " " << files[i].GetPath() << '\n';
+		for (size_t i = 0; i < files.size(); i++) 
+		{
+			mainTopic.AddContext(files[i]);
 		}
 		std::vector<Topic> topics = GetDirsInDir("DATA");
 		for (size_t i = 0; i < topics.size(); i++) {
-			std::cout << topics[i].GetName() << '\n';
+			mainTopic.AddContext(topics[i]);
 		}
 		return true;
 	}

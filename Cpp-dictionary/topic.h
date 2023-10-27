@@ -10,7 +10,8 @@ public:
 	Topic(const std::string& topicName);
 	void AddContext(File file);
 	void AddContext(Topic topic);
-	std::string GetName();
+	void Print(int tabs = 1) const;
+	std::string GetName() const;
 	~Topic();
 
 private:

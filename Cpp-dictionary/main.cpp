@@ -16,6 +16,7 @@ int main()
 		SetConsoleTextAttribute(global::hConsole, 4);
 		printf("[!]error to load list data\n");
 	}
+	mainTopic.Print();
 	std::string command;
 	while (true)
 	{
