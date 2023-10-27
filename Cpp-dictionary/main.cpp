@@ -24,10 +24,12 @@ int main()
 		getline(std::cin, command);
 		if (!command.empty())
 		{
-			for (char& c : command) {
+			for (char& c : command)
+			{
 				c = tolower(c);
 			}
-			int r = HandleCommand(command);
+			std::vector<std::string> commandWords = Split(command, ">");
+			int r = HandleCommand(commandWords);
 			if (r == 1)
 			{
 				SetConsoleTextAttribute(global::hConsole, 4);

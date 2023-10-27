@@ -1,30 +1,52 @@
 #include "transfer.h"
 
-int HandleCommand(std::string command)
+int HandleCommand(std::vector<std::string> command)
 {
-	if (command == "help")
+	if (command[0] == "help")
 	{
 		Help();
 		return 0;
 	}
-	if (command == "about")
+	if (command[0] == "about")
 	{
 		About();
 		return 0;
 	}
-	if (command == "decor")
+	if (command[0] == "decor")
 	{
 		Decor();
 		return 0;
 	}
-	if (command == "list")
+	if (command[0] == "list")
 	{
 		global::mainTopic.Print();
 		std::cout << '\n';
+		return 0;
+	}
+	if (command[0] == "create")
+	{
 		return 0;
 	}
 	else
 	{
 		return 1;
 	}
+}
+
+
+std::vector<std::string> Split(const std::string& input, const std::string& separator)
+{
+	std::vector<std::string> result;
+	size_t start = 0;
+	size_t end = 0;
+
+	while ((end = input.find(separator, start)) != std::string::npos)
+	{
+		result.push_back(input.substr(start, end - start));
+		start = end + separator.length();
+	}
+
+	result.push_back(input.substr(start));
+
+	return result;
 }
