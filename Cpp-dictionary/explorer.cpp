@@ -70,3 +70,101 @@ std::string AddDoc(const std::string& path)
     }
 
 }
+
+std::string DelDoc(const std::string& path) 
+{
+    if (path.find("DATA") == 0 || path.find("data") == 0)
+    {
+        if (fs::exists(path + ".txt"))
+        {
+            if (std::filesystem::remove(path + ".txt"))
+            {
+                return "done";
+            }
+            else
+                return "failed to delete the doc";
+        }
+        else
+            return "path is incorrectly written or non-existent";
+
+    }
+    else
+    {
+        return "path should start from \"DATA\"";
+    }
+}
+
+std::string DelTopic(const std::string& path)
+{
+    if (path.find("DATA") == 0 || path.find("data") == 0)
+    {
+        if (fs::exists(path))
+        {
+            try {
+                std::filesystem::remove_all(path);
+                return "done";
+            }
+            catch (...) 
+            {
+                return "failed to delete the topic";
+            }
+        }
+        else
+            return "path is incorrectly written or non-existent";
+
+    }
+    else
+    {
+        return "path should start from \"DATA\"";
+    }
+}
+
+std::string RenameDoc(const std::string& oldName, const std::string& name)
+{
+    if (oldName.find("DATA") == 0 || oldName.find("data") == 0){
+        if (fs::exists(oldName+".txt") && fs::is_regular_file(oldName + ".txt")) {
+            try {
+                fs::path filePath(oldName + ".txt");
+                std::string path = filePath.parent_path().string();
+                fs::rename(oldName + ".txt", path+'/'+name + ".txt");
+                return "done";
+            }
+            catch (...) 
+            {
+                return "failed to rename the doc";
+            }
+        }
+        else
+            return "path is incorrectly written or non-existent";
+    }
+    else
+    {
+        return "path should start from \"DATA\"";
+    }
+}
+
+std::string RenameTopic(const std::string& oldName, const std::string& name)
+{
+    if (oldName.find("DATA") == 0 || oldName.find("data") == 0) 
+    {
+        if (fs::exists(oldName) && fs::is_directory(oldName) && oldName!= "DATA" && oldName != "DATA/" && oldName != "data" && oldName != "data/") {
+            try 
+            {
+                fs::path folderPath(oldName);
+                std::string path = folderPath.parent_path().string();
+                fs::rename(oldName, path+'/'+name);
+                return "done";
+            }
+            catch (...) 
+            {
+                return "failed to rename the topic";
+            }
+        }
+        else 
+            return "path is incorrectly written or non-existent";
+    }
+    else
+    {
+        return "path should start from \"DATA\"";
+    }
+}

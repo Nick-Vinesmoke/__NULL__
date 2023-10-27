@@ -45,6 +45,7 @@ int HandleCommand(std::vector<std::string> command)
 				SetConsoleTextAttribute(global::hConsole, 4);
 				std::cout << "[!]"<<r<<'\n';
 			}
+			return 0;
 		}
 		else if (command[1] == "doc") 
 		{
@@ -65,15 +66,120 @@ int HandleCommand(std::vector<std::string> command)
 				SetConsoleTextAttribute(global::hConsole, 4);
 				std::cout << "[!]" << r << '\n';
 			}
+			return 0;
 		}
 		else
 			return 1;
-		return 0;
+	}
+	if (command[0] == "delete" && command.size() == 2)
+	{
+		if (command[1] == "topic" && command.size() == 3)
+		{
+			std::string r = DelTopic(command[2]);
+			if (r == "done")
+			{
+				SetConsoleTextAttribute(global::hConsole, 6);
+				std::cout << "[i]topic successfully deleted\n";
+				global::mainTopic.ClearContext();
+				if (!LoadList(global::mainTopic, "DATA"))
+				{
+					SetConsoleTextAttribute(global::hConsole, 4);
+					printf("[!]error to update list data\n");
+				}
+			}
+			else
+			{
+				SetConsoleTextAttribute(global::hConsole, 4);
+				std::cout << "[!]" << r << '\n';
+			}
+			return 0;
+		}
+		if (command[1] == "doc" && command.size() == 3)
+		{
+			std::string r = DelDoc(command[2]);
+			if (r == "done")
+			{
+				SetConsoleTextAttribute(global::hConsole, 6);
+				std::cout << "[i]doc successfully deleted\n";
+				global::mainTopic.ClearContext();
+				if (!LoadList(global::mainTopic, "DATA"))
+				{
+					SetConsoleTextAttribute(global::hConsole, 4);
+					printf("[!]error to update list data\n");
+				}
+			}
+			else
+			{
+				SetConsoleTextAttribute(global::hConsole, 4);
+				std::cout << "[!]" << r << '\n';
+			}
+			return 0;
+		}
+		if (command[1] == "all")
+		{
+			std::string r = DelTopic("DATA");
+			SetConsoleTextAttribute(global::hConsole, 6);
+			std::cout << "[i]DATA successfully deleted\n";
+			global::mainTopic.ClearContext();
+			try
+			{
+				fs::create_directory("DATA");
+			}
+			catch (...){}
+			return 0;
+		}
+		else
+			return 1;
+	}
+	if (command[0] == "change" && command.size() == 4)
+	{
+		if (command[1] == "topic") 
+		{
+			std::string r = RenameTopic(command[2], command[3]);
+			if (r == "done")
+			{
+				SetConsoleTextAttribute(global::hConsole, 6);
+				std::cout << "[i]topic successfully renamed\n";
+				global::mainTopic.ClearContext();
+				if (!LoadList(global::mainTopic, "DATA"))
+				{
+					SetConsoleTextAttribute(global::hConsole, 4);
+					printf("[!]error to update list data\n");
+				}
+			}
+			else
+			{
+				SetConsoleTextAttribute(global::hConsole, 4);
+				std::cout << "[!]" << r << '\n';
+			}
+			return 0;
+		}
+		else if (command[1] == "doc") 
+		{
+			std::string r = RenameDoc(command[2], command[3]);
+			if (r == "done")
+			{
+				SetConsoleTextAttribute(global::hConsole, 6);
+				std::cout << "[i]doc successfully renamed\n";
+				global::mainTopic.ClearContext();
+				if (!LoadList(global::mainTopic, "DATA"))
+				{
+					SetConsoleTextAttribute(global::hConsole, 4);
+					printf("[!]error to update list data\n");
+				}
+			}
+			else
+			{
+				SetConsoleTextAttribute(global::hConsole, 4);
+				std::cout << "[!]" << r << '\n';
+			}
+			return 0;
+		}
+		else
+			return 1;
 	}
 	else
-	{
 		return 1;
-	}
 }
 
 
