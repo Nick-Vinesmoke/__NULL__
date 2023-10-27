@@ -178,6 +178,21 @@ int HandleCommand(std::vector<std::string> command)
 		else
 			return 1;
 	}
+	if (command[0] == "redact" && command.size() == 2) 
+	{
+		std::string r = OpenInEditor(command[1]);
+		if (r == "done")
+		{
+			SetConsoleTextAttribute(global::hConsole, 6);
+			std::cout << "[i]doc successfully opened in the editor\n";
+		}
+		else
+		{
+			SetConsoleTextAttribute(global::hConsole, 4);
+			std::cout << "[!]" << r << '\n';
+		}
+		return 0;
+	}
 	else
 		return 1;
 }

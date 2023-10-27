@@ -16,4 +16,5 @@ std::string DelDoc(const std::string& path);
 std::string DelTopic(const std::string& path);
 std::string RenameDoc(const std::string& oldName, const std::string& name);
 std::string RenameTopic(const std::string& oldName, const std::string& name);
+std::string OpenInEditor(const std::string& path);
 

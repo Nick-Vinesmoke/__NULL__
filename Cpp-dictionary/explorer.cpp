@@ -1,8 +1,6 @@
 #include "explorer.h"
 
 
-
-
 std::vector<File> GetFilesInDir(const std::string& directoryPath)
 {
     std::vector<File> txtFiles;
@@ -161,6 +159,31 @@ std::string RenameTopic(const std::string& oldName, const std::string& name)
             }
         }
         else 
+            return "path is incorrectly written or non-existent";
+    }
+    else
+    {
+        return "path should start from \"DATA\"";
+    }
+}
+
+std::string OpenInEditor(const std::string& path)
+{
+    if (path.find("DATA") == 0 || path.find("data") == 0)
+    {
+        if (fs::exists(path + ".txt"))
+        {
+            std::string command = "notepad " + path + ".txt";
+            int result = system(command.c_str());
+
+            if (result == 0) {
+                return "done";
+            }
+            else {
+                return "failed to open the doc in the editor";
+            }
+        }
+        else
             return "path is incorrectly written or non-existent";
     }
     else
