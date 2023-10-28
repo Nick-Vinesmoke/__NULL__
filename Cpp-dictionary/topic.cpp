@@ -7,7 +7,10 @@ Topic::Topic(const std::string& topicName)
 }
 
 Topic::~Topic()
-{}
+{
+    this->name = "";
+    this->context.clear();
+}
 
 void Topic::AddContext(File file) 
 {
@@ -52,32 +55,29 @@ void Topic::ClearContext()
     this->context.clear();
 }
 
-//remake Search
-std::vector<std::variant<File, Topic>> Topic::Search(const std::string& name)
+//still error here
+void Topic::Search(std::vector<std::variant<File, Topic>>& results, const std::string& name) const
 {
-    std::vector<std::variant<File, Topic>> results;
-
-    for (const auto& item : this->context) 
+    for (size_t i = 0; i < this->context.size(); i++)
     {
-        if (std::holds_alternative<File>(item)) 
+        if (std::holds_alternative<File>(this->context[i]))
         {
-            const File& file = std::get<File>(item);
-            if (file.GetName().find(name)) 
+            const File& file = std::get<File>(this->context[i]);
+            if (!file.GetName().find(name))
             {
                 results.push_back(file);
             }
         }
-        else if (std::holds_alternative<Topic>(item)) 
+        else if (std::holds_alternative<Topic>(this->context[i]))
         {
-            const Topic& topic = std::get<Topic>(item);
-            if (topic.GetName().find(name)) 
+            const Topic& topic = std::get<Topic>(this->context[i]);
+            if (!topic.GetName().find(name))
             {
                 results.push_back(topic);
+                topic.Search(results, name);
             }
         }
     }
-
-    return results;
 }
 
 std::string Topic::GetName() const { return this->name; }
