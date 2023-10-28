@@ -228,32 +228,56 @@ int HandleCommand(std::vector<std::string> command)
 		PrintSearchResults(results);
 		SetConsoleTextAttribute(global::hConsole, 6);
 		std::cout << "[i]type \"details>index\" to see details\n";
-		//std::string command;
-		//SetConsoleTextAttribute(global::hConsole, 2);
-		//printf(">>>");
-		//SetConsoleTextAttribute(global::hConsole, 8);
-		//getline(std::cin, command);
-		//if (command == "details")
-		//{
+		std::string command;
+		while (true)
+		{
+			SetConsoleTextAttribute(global::hConsole, 2);
+			printf(">>>");
+			SetConsoleTextAttribute(global::hConsole, 8);
+			getline(std::cin, command);
+			if (!command.empty())
+			{
+				std::vector<std::string> commandWords = Split(command, ">");
 
-		//}
-		//else 
-		//{
-		//	if (!command.empty()) 
-		//	{
-		//		for (char& c : command)
-		//		{
-		//			c = tolower(c);
-		//		}
-		//		int r = HandleCommand(command);
-		//		if (r == 1)
-		//		{
-		//			SetConsoleTextAttribute(global::hConsole, 4);
-		//			std::cout << "[!]invalid command\n";
-		//		}
-		//	}
-		//}
-		return 0;
+				for (char& c : commandWords[0])
+				{
+					c = tolower(c);
+				}
+				if (commandWords[0] == "details")
+				{
+					if (commandWords.size() == 2)
+					{
+						if (std::holds_alternative<File>(results[std::stoi(commandWords[1])]))
+						{
+							const File& file = std::get<File>(results[std::stoi(commandWords[1])]);
+							//read file by path
+
+						}
+						else if (std::holds_alternative<Topic>(results[std::stoi(commandWords[1])]))
+						{
+							const Topic& topic = std::get<Topic>(results[std::stoi(commandWords[1])]);
+							topic.Print();
+							//choose doc in topic to read
+						}
+					}
+					else 
+					{
+						SetConsoleTextAttribute(global::hConsole, 4);
+						std::cout << "[!]invalid command\n";
+					}
+				}
+				else
+				{
+					int r = HandleCommand(commandWords);
+					if (r == 1)
+					{
+						SetConsoleTextAttribute(global::hConsole, 4);
+						std::cout << "[!]invalid command\n";
+						return 0;
+					}
+				}
+			}
+		}
 	}
 	else
 		return 1;
