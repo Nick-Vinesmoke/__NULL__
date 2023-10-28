@@ -63,7 +63,7 @@ void Topic::Search(std::vector<std::variant<File, Topic>>& results, const std::s
         if (std::holds_alternative<File>(this->context[i]))
         {
             const File& file = std::get<File>(this->context[i]);
-            if (!file.GetName().find(name))
+            if (file.GetName().find(name) >= 0 && file.GetName().find(name) < 18446744073709551615)
             {
                 results.push_back(file);
             }
@@ -71,11 +71,11 @@ void Topic::Search(std::vector<std::variant<File, Topic>>& results, const std::s
         else if (std::holds_alternative<Topic>(this->context[i]))
         {
             const Topic& topic = std::get<Topic>(this->context[i]);
-            if (!topic.GetName().find(name))
+            if (topic.GetName().find(name)>= 0 && topic.GetName().find(name) < 18446744073709551615)
             {
                 results.push_back(topic);
-                topic.Search(results, name);
             }
+            topic.Search(results, name);
         }
     }
 }
