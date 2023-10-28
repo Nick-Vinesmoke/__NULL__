@@ -279,6 +279,18 @@ int HandleCommand(std::vector<std::string> command)
 			}
 		}
 	}
+	if (command[0] == "read" && command.size() == 2) 
+	{
+		std::string r = Read(command[1]);
+		if (r == "done")
+		{}
+		else
+		{
+			SetConsoleTextAttribute(global::hConsole, 4);
+			std::cout << "[!]" << r << '\n';
+		}
+		return 0;
+	}
 	else
 		return 1;
 }

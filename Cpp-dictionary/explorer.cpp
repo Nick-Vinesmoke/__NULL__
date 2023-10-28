@@ -191,3 +191,32 @@ std::string OpenInEditor(const std::string& path)
         return "path should start from \"DATA\"";
     }
 }
+
+std::string Read(const std::string& path) 
+{
+    if (path.find("DATA") == 0 || path.find("data") == 0)
+    {
+        if (fs::exists(path + ".txt")) 
+        {
+            std::ifstream file(path + ".txt");
+            if (file.is_open()) {
+                std::string line;
+                while (std::getline(file, line))
+                {
+                    std::cout << line << std::endl;
+                }
+                file.close();
+            }
+            else
+            {
+                return "failed to read the doc";
+            }
+        }
+        else
+            return "path is incorrectly written or non-existent";
+    }
+    else
+    {
+        return "path should start from \"DATA\"";
+    }
+}
