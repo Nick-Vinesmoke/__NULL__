@@ -250,8 +250,14 @@ int HandleCommand(std::vector<std::string> command)
 						if (std::holds_alternative<File>(results[std::stoi(commandWords[1])]))
 						{
 							const File& file = std::get<File>(results[std::stoi(commandWords[1])]);
-							//read file by path
-
+							std::string r = Read(file.GetPath().substr(0, file.GetPath().length()-4));
+							if (r == "done")
+							{}
+							else
+							{
+								SetConsoleTextAttribute(global::hConsole, 4);
+								std::cout << "[!]" << r << '\n';
+							}
 						}
 						else if (std::holds_alternative<Topic>(results[std::stoi(commandWords[1])]))
 						{

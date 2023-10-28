@@ -257,7 +257,9 @@ std::string Read(const std::string& path)
             if (file.is_open()) 
             {
                 SetConsoleTextAttribute(global::hConsole, 9);
-                std::cout<< path.substr(path.rfind('/') + 1) << "\n\n";
+                std::string name = path.substr(path.rfind('/') + 1);
+                name = path.substr(path.rfind('\\') + 1);
+                std::cout<< name << "\n\n";
                 SetConsoleTextAttribute(global::hConsole, 7);
                 std::string line;
                 while (std::getline(file, line))
