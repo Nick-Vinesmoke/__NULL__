@@ -5,9 +5,9 @@ void Decor()
 	SetConsoleTextAttribute(global::hConsole, 8);
 	std::string commands = R"LOGO(here is a list of all possible design techniques when working with documentation files
 
-<color>     ===>   change the color of the text after the tag, should looks like <color>blue:
-<normal>    ===>   reset the color to white
-all available colors:
+<style>                ===>   change the style of the text after the tag, should looks like <color>blue:
+<style>normal:         ===>   reset the style to default(white text on black bg)
+all available styles:
 	* blue
 	* green
 	* light blue
@@ -16,11 +16,10 @@ all available colors:
 	* white
 	* grey
 	* purple
+	* highlight
+	* underline
 
-<highlight> ===>   highlight the text
-<normal>    ===>   to reset
-
-<code>=Cpp  ===>   code frame with specified language
-</code> to  ===>   end code frame)LOGO";
+<code>=Name-Cpp        ===>   code frame with code name and specified language, should take full line 
+</code>                ===>   end code frame, should take full line )LOGO";
 	printf("%s\n\n", commands.c_str());
 }

@@ -1,4 +1,6 @@
 #include "explorer.h"
+#include "global.h"
+#include "transfer.h"
 
 
 std::vector<File> GetFilesInDir(const std::string& directoryPath)
@@ -192,6 +194,59 @@ std::string OpenInEditor(const std::string& path)
     }
 }
 
+void PrintColored(std::vector<std::string> context)
+{
+    bool match = false;
+    for (size_t i = 0; i < context.size(); i++)
+    {
+        if (context[i].find("underline: ") == 0)
+        {
+            HANDLE consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
+            CONSOLE_SCREEN_BUFFER_INFO consoleInfo;
+            GetConsoleScreenBufferInfo(consoleHandle, &consoleInfo);
+            SetConsoleTextAttribute(consoleHandle, consoleInfo.wAttributes | COMMON_LVB_UNDERSCORE);
+            context[i].erase(0, 11);
+            std::cout << context[i];
+            continue;
+        }
+        for (size_t y = 0; y < global::styles.size(); y++)
+        {
+            if (context[i].find(global::styles[y].name) == 0)
+            {
+                context[i].erase(0, global::styles[y].name.length());
+                SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), global::styles[y].index);
+                std::cout << context[i];
+                match = true;
+
+            }
+        }
+        if (!match)
+        {
+            std::cout << context[i];
+        }
+
+    }
+}
+
+void StartCodeFrame(std::string& command) 
+{
+    std::string name = command.erase(0, 7);
+    std::string line = "===================================================================================================================";
+    line = line.erase(0, name.length());
+    SetConsoleTextAttribute(global::hConsole, 8);
+    printf("\n=====%s%s\n",name.c_str(), line.c_str());
+    SetConsoleTextAttribute(global::hConsole, 128);
+    global::codeFrame = true;
+}
+
+void EndCodeFrame()
+{
+    SetConsoleTextAttribute(global::hConsole, 8);
+    printf("========================================================================================================================\n");
+    SetConsoleTextAttribute(global::hConsole, 7);
+    global::codeFrame = false;
+}
+
 std::string Read(const std::string& path) 
 {
     if (path.find("DATA") == 0 || path.find("data") == 0)
@@ -199,13 +254,46 @@ std::string Read(const std::string& path)
         if (fs::exists(path + ".txt")) 
         {
             std::ifstream file(path + ".txt");
-            if (file.is_open()) {
+            if (file.is_open()) 
+            {
+                SetConsoleTextAttribute(global::hConsole, 9);
+                std::cout<< path.substr(path.rfind('/') + 1) << "\n\n";
+                SetConsoleTextAttribute(global::hConsole, 7);
                 std::string line;
                 while (std::getline(file, line))
                 {
-                    std::cout << line << std::endl;
+                    if (line.find("<code>=") == 0 || line.find("</code>") == 0)
+                    {
+                        if (line.find("<code>=") == 0) 
+                        {
+                            StartCodeFrame(line);
+                        }
+                        else if(line.find("</code>") == 0)
+                        {
+                            EndCodeFrame();
+                        }
+                    }
+                    else 
+                    {
+                        if (!global::codeFrame)
+                        {
+                            std::vector<std::string> context = Split(line, "<style>");
+                            PrintColored(context);
+                            printf("\n");
+                        }
+                        else
+                        {
+                            std::cout << line;
+                            for (size_t i = 0; i < 120- line.length(); i++)
+                            {
+                                printf(" ");
+                            }
+                            printf("\n");
+                        }
+                    }
                 }
                 file.close();
+                return "done";
             }
             else
             {

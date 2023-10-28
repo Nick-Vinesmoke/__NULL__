@@ -283,7 +283,9 @@ int HandleCommand(std::vector<std::string> command)
 	{
 		std::string r = Read(command[1]);
 		if (r == "done")
-		{}
+		{
+
+		}
 		else
 		{
 			SetConsoleTextAttribute(global::hConsole, 4);
