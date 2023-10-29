@@ -30,7 +30,7 @@ namespace global
     inline bool codeFrame = false;
     inline HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
     inline std::string user = GetUser();
-    inline Topic mainTopic("DATA");
+    inline Topic mainTopic("DATA", "DATA");
     inline std::string logo = R"LOGO(  ___ ___ ___     ___  _    _   _                        
  / __| _ \ _ \___|   \(_)__| |_(_)___ _ _  __ _ _ _ _  _ 
 | (__|  _/  _/___| |) | / _|  _| / _ \ ' \/ _` | '_| || |

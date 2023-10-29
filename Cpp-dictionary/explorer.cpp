@@ -23,7 +23,7 @@ std::vector<Topic> GetDirsInDir(const std::string& directoryPath)
 
     for (const auto& entry : std::filesystem::directory_iterator(directoryPath)) {
         if (entry.is_directory()) {
-            Topic topic(entry.path().filename().string());
+            Topic topic(entry.path().filename().string(), directoryPath);
             topics.push_back(topic);
         }
     }

@@ -263,7 +263,7 @@ int HandleCommand(std::vector<std::string> command)
 						{
 							const Topic& topic = std::get<Topic>(results[std::stoi(commandWords[1])]);
 							topic.Print();
-							//choose doc in topic to read
+							/// read topic like this: details>topic1/1
 						}
 					}
 					else 

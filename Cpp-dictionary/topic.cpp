@@ -1,13 +1,15 @@
 #include "topic.h"
 #include "global.h"
 
-Topic::Topic(const std::string& topicName)
+Topic::Topic(const std::string& topicName, const std::string& topicPath)
 {
     this->name = topicName;
+    this->path = topicPath;
 }
 
 Topic::~Topic()
 {
+    this->path = "";
     this->name = "";
     this->context.clear();
 }
@@ -55,7 +57,6 @@ void Topic::ClearContext()
     this->context.clear();
 }
 
-//still error here
 void Topic::Search(std::vector<std::variant<File, Topic>>& results, const std::string& name) const
 {
     for (size_t i = 0; i < this->context.size(); i++)
@@ -81,3 +82,5 @@ void Topic::Search(std::vector<std::variant<File, Topic>>& results, const std::s
 }
 
 std::string Topic::GetName() const { return this->name; }
+
+std::string Topic::GetPath() const { return this->path; }
