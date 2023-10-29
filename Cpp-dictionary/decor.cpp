@@ -1,4 +1,5 @@
 ﻿#include "transfer.h"
+#include "global.h"
 
 void Decor() 
 {

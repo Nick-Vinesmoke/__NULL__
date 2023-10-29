@@ -1,5 +1,9 @@
 #include "transfer.h"
 #include "explorer.h"
+#include "global.h"
+#include "dictionary.h"
+#include <filesystem>
+namespace fs = std::filesystem;
 
 
 void PrintSearchResults(const std::vector<std::variant<File, Topic>>& results)
@@ -223,6 +227,7 @@ int HandleCommand(std::vector<std::string> command)
 	}
 	if (command[0] == "search" && command.size() == 2)
 	{
+		//menu
 		std::vector<std::variant<File, Topic>> results;
 		global::mainTopic.Search(results, command[1]);
 		PrintSearchResults(results);
@@ -287,6 +292,7 @@ int HandleCommand(std::vector<std::string> command)
 	}
 	if (command[0] == "read" && command.size() == 2) 
 	{
+		//menu
 		std::string r = Read(command[1]);
 		if (r == "done")
 		{
@@ -301,22 +307,4 @@ int HandleCommand(std::vector<std::string> command)
 	}
 	else
 		return 1;
-}
-
-
-std::vector<std::string> Split(const std::string& input, const std::string& separator)
-{
-	std::vector<std::string> result;
-	size_t start = 0;
-	size_t end = 0;
-
-	while ((end = input.find(separator, start)) != std::string::npos)
-	{
-		result.push_back(input.substr(start, end - start));
-		start = end + separator.length();
-	}
-
-	result.push_back(input.substr(start));
-
-	return result;
 }

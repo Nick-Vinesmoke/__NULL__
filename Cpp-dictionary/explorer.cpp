@@ -1,6 +1,10 @@
 #include "explorer.h"
 #include "global.h"
 #include "transfer.h"
+#include <fstream>
+#include <filesystem>
+
+namespace fs = std::filesystem;
 
 
 std::vector<File> GetFilesInDir(const std::string& directoryPath)

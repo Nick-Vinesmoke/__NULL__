@@ -2,6 +2,9 @@
 #include "setup.h"
 #include "transfer.h"
 #include "topic.h"
+#include "helper.h"
+#include "global.h"
+#include "dictionary.h"
 
 int main() 
 {
@@ -29,10 +32,7 @@ int main()
 			{
 				if (i<2)
 				{
-					for (char& c : commandWords[i])
-					{
-						c = tolower(c);
-					}
+					toLower(commandWords[i]);
 				}
 			}
 			int r = HandleCommand(commandWords);
